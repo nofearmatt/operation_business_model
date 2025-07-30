@@ -55,12 +55,99 @@ import Button from '@/components/atoms/Button'
 
 ### Примерная продуктовая линейка:
 
-| Продукт | Сегмент Клиента | «Боль» Клиента | Состав Продукта | Формат |
-|---------|-----------------|----------------|-----------------|---------|
-| **«Контент-Стартер»** | Малый бизнес, стартапы | "Нужно быстро и недорого наполнить сайт/соцсети качественным контентом" | Пакет из 30 фото, базовая ретушь, стандартные права | Фикс-прайс, 5 дней |
-| **«Бренд-Пакет»** | Средний бизнес, бренды | "Запускаем новую линейку, нужна имиджевая съемка в нашем стиле" | Креативная концепция, кастинг, съемка, расширенная ретушь | Проектная смета |
-| **«Корпоративный Абонемент»** | Крупные компании, e-com | "Нам постоянно нужен контент, хотим одного надежного партнера" | Выделенный менеджер, банк часов/съемок, <Tooltip text="Service Level Agreement - соглашение об уровне обслуживания">SLA</Tooltip> | Ретейнер |
-| **«Кастом-Проект»** | Рекламные агентства, крупные бренды | "Нужна сложная, нестандартная креативная кампания с нуля" | Полный цикл: от стратегии до постпродакшна | Индивидуальный расчет |
+<div className="overflow-x-auto my-8">
+  <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+    <thead className="bg-gray-50">
+      <tr>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Продукт
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Сегмент Клиента
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          «Боль» Клиента
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Состав Продукта
+        </th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Формат
+        </th>
+      </tr>
+    </thead>
+    <tbody className="bg-white divide-y divide-gray-200">
+      <tr className="hover:bg-gray-50">
+        <td className="px-4 py-3 whitespace-nowrap">
+          <div className="font-semibold text-gray-900">«Контент-Стартер»</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900">Малый бизнес, стартапы</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900 italic">"Нужно быстро и недорого наполнить сайт/соцсети качественным контентом"</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900">Пакет из 30 фото, базовая ретушь, стандартные права</div>
+        </td>
+        <td className="px-4 py-3 whitespace-nowrap">
+          <div className="text-sm text-gray-900">Фикс-прайс, 5 дней</div>
+        </td>
+      </tr>
+      <tr className="hover:bg-gray-50">
+        <td className="px-4 py-3 whitespace-nowrap">
+          <div className="font-semibold text-gray-900">«Бренд-Пакет»</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900">Средний бизнес, бренды</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900 italic">"Запускаем новую линейку, нужна имиджевая съемка в нашем стиле"</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900">Креативная концепция, кастинг, съемка, расширенная ретушь</div>
+        </td>
+        <td className="px-4 py-3 whitespace-nowrap">
+          <div className="text-sm text-gray-900">Проектная смета</div>
+        </td>
+      </tr>
+      <tr className="hover:bg-gray-50">
+        <td className="px-4 py-3 whitespace-nowrap">
+          <div className="font-semibold text-gray-900">«Корпоративный Абонемент»</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900">Крупные компании, e-com</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900 italic">"Нам постоянно нужен контент, хотим одного надежного партнера"</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900">Выделенный менеджер, банк часов/съемок, <Tooltip text="Service Level Agreement - соглашение об уровне обслуживания">SLA</Tooltip></div>
+        </td>
+        <td className="px-4 py-3 whitespace-nowrap">
+          <div className="text-sm text-gray-900">Ретейнер</div>
+        </td>
+      </tr>
+      <tr className="hover:bg-gray-50">
+        <td className="px-4 py-3 whitespace-nowrap">
+          <div className="font-semibold text-gray-900">«Кастом-Проект»</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900">Рекламные агентства, крупные бренды</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900 italic">"Нужна сложная, нестандартная креативная кампания с нуля"</div>
+        </td>
+        <td className="px-4 py-3">
+          <div className="text-sm text-gray-900">Полный цикл: от стратегии до постпродакшна</div>
+        </td>
+        <td className="px-4 py-3 whitespace-nowrap">
+          <div className="text-sm text-gray-900">Индивидуальный расчет</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 **Что это дает:**
 
