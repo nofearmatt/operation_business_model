@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  // Временно отключаем авторизацию
+  return NextResponse.next();
+  
+  // Старый код авторизации закомментирован
+  /*
   // Проверяем, есть ли заголовок авторизации
   const authHeader = request.headers.get('authorization');
   
@@ -64,6 +69,7 @@ export function middleware(request: NextRequest) {
 
   // Если пароль верный, пропускаем запрос дальше
   return NextResponse.next();
+  */
 }
 
 // Применяем middleware ко всем страницам кроме API и статичных файлов
