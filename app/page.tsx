@@ -50,7 +50,9 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-technical-blue rounded-full"></div>
-                  <span className="text-steel/70">Анализ ограничений по Голдратту</span>
+                  <Link href="/satellite/goldratt" className="hover:text-technical-blue transition-colors font-medium">
+                    Анализ ограничений по Голдратту
+                  </Link>
                 </li>
               </ul>
             </div>

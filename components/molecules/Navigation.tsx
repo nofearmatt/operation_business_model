@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Home, Target, Layers, Package, Menu, X, type LucideIcon } from 'lucide-react';
+import { Home, Target, Layers, Package, TrendingUp, Menu, X, type LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Icon from '@/components/atoms/Icon';
@@ -38,6 +38,12 @@ const navItems: NavItem[] = [
     label: 'Продуктовая Матрица',
     icon: Package,
     description: 'Каталог решений для клиентов'
+  },
+  {
+    href: '/satellite/goldratt',
+    label: 'Анализ Ограничений',
+    icon: TrendingUp,
+    description: 'Диагностика по методу Голдратта'
   }
 ];
 

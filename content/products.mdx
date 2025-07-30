@@ -1,6 +1,7 @@
 import Tooltip from '@/components/atoms/Tooltip'
 import Button from '@/components/atoms/Button'
 import ProductMatrixViewer from '@/components/organisms/ProductMatrixViewer'
+import Link from 'next/link'
 
 # Продуктовая Матрица «Фотофактор»
 
@@ -264,7 +265,9 @@ import ProductMatrixViewer from '@/components/organisms/ProductMatrixViewer'
 <div className="my-8 p-6 bg-white/80 rounded-xl border-l-4 border-technical-blue text-center">
   <h3 className="text-xl font-bold mb-4">Готовы начать?</h3>
   <p className="mb-6">Эти продукты — не просто услуги, это решения проблем наших клиентов, упакованные в понятную и продаваемую форму.</p>
-  <Button variant="primary" size="lg">
-    Запустить пилотную продуктовую линейку →
-  </Button>
+  <Link href="/satellite/operations">
+    <Button variant="primary" size="lg">
+      Запустить пилотную продуктовую линейку →
+    </Button>
+  </Link>
 </div> 
