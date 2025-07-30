@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Blueprint colors (основа) */
+  --color-graphite: #111827;
+  --color-steel: #4B5563;
+  --color-cloud: #F9FAFB;
+  
+  /* Spotlight colors (акценты) */
+  --color-electric-coral: #FF5A5A;  
+  --color-technical-blue: #3B82F6;
+  
+  /* Font families */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  
+  /* Background patterns */
+  --background-image-blueprint-grid: linear-gradient(rgba(75, 85, 99, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(75, 85, 99, 0.1) 1px, transparent 1px);
+  --background-size-grid: 20px 20px;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+  
+  body {
+    @apply bg-cloud text-graphite antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-graphite;
+  }
+  
+  h1 {
+    @apply text-4xl lg:text-5xl;
+  }
+  
+  h2 {
+    @apply text-3xl lg:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl lg:text-3xl;
+  }
+}
+
+@layer components {
+  .blueprint-bg {
+    background-image: var(--background-image-blueprint-grid);
+    background-size: var(--background-size-grid);
+  }
+  
+  .btn-primary {
+    @apply bg-electric-coral text-cloud px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-technical-blue text-cloud px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-colors;
+  }
+  
+  .btn-ghost {
+    @apply border-2 border-steel text-steel px-6 py-3 rounded-lg font-medium hover:border-graphite hover:text-graphite transition-colors;
+  }
+}
