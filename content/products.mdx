@@ -26,12 +26,99 @@ import ProductMatrixViewer from '@/components/organisms/ProductMatrixViewer'
 
 <ProductMatrixViewer />
 
-| Продукт | Тип Клиента | Ключевая Потребность | Сложность / Цена | Ответственный Юнит |
-|---------|-------------|---------------------|------------------|-------------------|
-| **«Контент-Стартер»** | Малый бизнес, Стартапы, Instagram-бренды | «Быстро, недорого, качественно» — базовый контент для старта. | ★☆☆☆☆ / $ | Юнит «Поток» |
-| **«Бренд-Пакет»** | Средний бизнес, Маркетинговые отделы | «Нужна имиджевая история» — контент, отражающий стиль бренда. | ★★★☆☆ / $$$ | Юнит «Проекты» |
-| **«Корпоративный Абонемент»** | Крупный e-commerce, FMCG, Корпорации | «Нужен постоянный поток контента» — надежный партнер на аутсорсе. | ★★★★☆ / $$$$ | Юнит «Проекты» (выделенный продюсер) |
-| **«Кастом-Проект»** | Рекламные агентства, Крупные бренды | «Нужен уникальный, сложный проект» — решение невыполнимой задачи. | ★★★★★ / $$$$$ | Юнит «Проекты» (топовые продюсеры) |
+<div className="overflow-x-auto my-8">
+  <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+    <thead className="bg-gray-50">
+      <tr>
+        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Продукт
+        </th>
+        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Тип Клиента
+        </th>
+        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Ключевая Потребность
+        </th>
+        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Сложность / Цена
+        </th>
+        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+          Ответственный Юнит
+        </th>
+      </tr>
+    </thead>
+    <tbody className="bg-white divide-y divide-gray-200">
+      <tr className="hover:bg-gray-50">
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="font-semibold text-gray-900">«Контент-Стартер»</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">Малый бизнес, Стартапы, Instagram-бренды</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">«Быстро, недорого, качественно» — базовый контент для старта.</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="text-sm text-gray-900">★☆☆☆☆ / $</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="text-sm text-gray-900">Юнит «Поток»</div>
+        </td>
+      </tr>
+      <tr className="hover:bg-gray-50">
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="font-semibold text-gray-900">«Бренд-Пакет»</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">Средний бизнес, Маркетинговые отделы</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">«Нужна имиджевая история» — контент, отражающий стиль бренда.</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="text-sm text-gray-900">★★★☆☆ / $$$</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="text-sm text-gray-900">Юнит «Проекты»</div>
+        </td>
+      </tr>
+      <tr className="hover:bg-gray-50">
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="font-semibold text-gray-900">«Корпоративный Абонемент»</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">Крупный e-commerce, FMCG, Корпорации</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">«Нужен постоянный поток контента» — надежный партнер на аутсорсе.</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="text-sm text-gray-900">★★★★☆ / $$$$</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="text-sm text-gray-900">Юнит «Проекты» (выделенный продюсер)</div>
+        </td>
+      </tr>
+      <tr className="hover:bg-gray-50">
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="font-semibold text-gray-900">«Кастом-Проект»</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">Рекламные агентства, Крупные бренды</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">«Нужен уникальный, сложный проект» — решение невыполнимой задачи.</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="text-sm text-gray-900">★★★★★ / $$$$$</div>
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <div className="text-sm text-gray-900">Юнит «Проекты» (топовые продюсеры)</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ---
 

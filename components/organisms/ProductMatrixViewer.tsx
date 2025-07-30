@@ -162,7 +162,7 @@ export default function ProductMatrixViewer() {
             whileHover={{ y: -5, scale: 1.02 }}
             transition={{ duration: 0.3 }}
             className={`
-              bg-white/80 rounded-xl p-4 md:p-6 shadow-lg cursor-pointer border-2 transition-all
+              bg-white/80 rounded-xl p-4 md:p-6 shadow-lg cursor-pointer border-2 transition-all min-h-[300px] flex flex-col
               ${selectedProduct === product.id ? 'border-electric-coral shadow-xl' : 'border-transparent hover:border-steel/30'}
             `}
             onClick={() => setSelectedProduct(selectedProduct === product.id ? null : product.id)}
@@ -171,26 +171,26 @@ export default function ProductMatrixViewer() {
             {/* Заголовок */}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
-                <h4 className="font-bold text-graphite text-lg">{product.name}</h4>
+                <h4 className="font-bold text-graphite text-lg leading-tight">{product.name}</h4>
                 <div 
-                  className="w-4 h-4 rounded-full" 
+                  className="w-4 h-4 rounded-full flex-shrink-0" 
                   style={{ backgroundColor: product.color }}
                 />
               </div>
-              <p className="text-sm text-steel italic">{product.slogan}</p>
+              <p className="text-sm text-steel italic leading-tight">{product.slogan}</p>
             </div>
 
             {/* Показатели */}
-            <div className="space-y-3 mb-4">
+            <div className="space-y-3 mb-4 flex-1">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-steel">Сложность:</span>
+                <span className="text-xs text-steel">Слож:</span>
                 <div className="flex gap-1">
                   {renderStars(product.complexity, `${product.id}-complexity`)}
                 </div>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-steel">Цена:</span>
+                <span className="text-xs text-steel">Цена:</span>
                 <div className="flex gap-1">
                   {renderPrice(product.price, `${product.id}-price`)}
                 </div>
@@ -198,7 +198,7 @@ export default function ProductMatrixViewer() {
               
               <div className="flex items-center justify-between">
                 <Icon icon={Clock} size="sm" color="muted" />
-                <span className="text-sm font-medium">{product.timeline}</span>
+                <span className="text-xs font-medium">{product.timeline}</span>
               </div>
               
               <div className="flex items-center justify-between">
@@ -208,9 +208,9 @@ export default function ProductMatrixViewer() {
             </div>
 
             {/* Маржа */}
-            <div className="text-center">
+            <div className="text-center mt-auto">
               <div className="inline-block bg-green-100 px-3 py-1 rounded-full">
-                <span className="text-sm font-semibold text-green-800">
+                <span className="text-xs font-semibold text-green-800">
                   Маржа: {product.margin}
                 </span>
               </div>
