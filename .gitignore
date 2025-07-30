@@ -37,3 +37,5 @@ next-env.d.ts
 
 # tailwind v4 migration docs (temporary)
 TAILWIND_V4_MIGRATION.md
+
+.vercel

@@ -1,67 +1,58 @@
 'use client';
 
 import { MDXProvider as BaseMDXProvider } from '@mdx-js/react';
-import Heading from '@/components/atoms/Heading';
 import Button from '@/components/atoms/Button';
-import Tooltip from '@/components/atoms/Tooltip';
 
 const components = {
   // Заголовки
-  h1: (props: any) => <Heading level={1} className="mb-6 mt-8 first:mt-0" {...props} />,
-  h2: (props: any) => <Heading level={2} className="mb-4 mt-8 first:mt-0" {...props} />,
-  h3: (props: any) => <Heading level={3} className="mb-3 mt-6" {...props} />,
-  h4: (props: any) => <Heading level={4} className="mb-2 mt-4" {...props} />,
+  h1: (props: any) => <h1 className="text-4xl lg:text-5xl font-bold text-graphite mb-6" {...props} />,
+  h2: (props: any) => <h2 className="text-3xl lg:text-4xl font-bold text-graphite mb-5" {...props} />,
+  h3: (props: any) => <h3 className="text-2xl lg:text-3xl font-bold text-graphite mb-4" {...props} />,
+  h4: (props: any) => <h4 className="text-xl font-bold text-graphite mb-3" {...props} />,
 
-  // Параграфы и текст
-  p: (props: React.HTMLProps<HTMLParagraphElement>) => <p className="mb-4 text-lg leading-relaxed text-graphite" {...props} />,
-  
+  // Параграфы
+  p: (props: any) => <p className="mb-4 text-lg leading-relaxed text-steel" {...props} />,
+
   // Списки
-  ul: (props: React.HTMLProps<HTMLUListElement>) => <ul className="mb-4 space-y-2 ml-6" {...props} />,
-  ol: (props: React.HTMLProps<HTMLOListElement>) => <ol className="mb-4 space-y-2 ml-6" {...props} />,
-  li: (props: React.HTMLProps<HTMLLIElement>) => <li className="text-lg leading-relaxed" {...props} />,
+  ul: (props: any) => <ul className="mb-4 space-y-2 ml-6 list-disc" {...props} />,
+  ol: (props: any) => <ol className="mb-4 space-y-2 ml-6 list-decimal" {...props} />,
+  li: (props: any) => <li className="text-lg leading-relaxed text-steel" {...props} />,
 
   // Ссылки
-  a: (props: React.HTMLProps<HTMLAnchorElement>) => (
-    <a 
-      className="text-technical-blue hover:text-electric-coral transition-colors underline decoration-2 underline-offset-2" 
-      {...props} 
-    />
-  ),
-
-  // Таблицы
-  table: (props: React.HTMLProps<HTMLTableElement>) => (
-    <div className="mb-6 overflow-x-auto">
-      <table className="w-full border-collapse bg-white/60 rounded-lg overflow-hidden shadow-sm" {...props} />
-    </div>
-  ),
-  thead: (props: React.HTMLProps<HTMLTableSectionElement>) => <thead className="bg-steel/10" {...props} />,
-  tbody: (props: React.HTMLProps<HTMLTableSectionElement>) => <tbody {...props} />,
-  tr: (props: React.HTMLProps<HTMLTableRowElement>) => <tr className="border-b border-steel/20" {...props} />,
-  th: (props: React.HTMLProps<HTMLTableCellElement>) => <th className="px-4 py-3 text-left font-semibold text-graphite" {...props} />,
-  td: (props: React.HTMLProps<HTMLTableCellElement>) => <td className="px-4 py-3 text-steel" {...props} />,
-
-  // Блоки кода
-  code: (props: React.HTMLProps<HTMLElement>) => (
-    <code className="bg-steel/10 px-2 py-1 rounded text-sm font-mono text-graphite" {...props} />
-  ),
-  pre: (props: React.HTMLProps<HTMLPreElement>) => (
-    <pre className="bg-graphite text-cloud p-4 rounded-lg overflow-x-auto mb-6 text-sm" {...props} />
+  a: (props: any) => (
+    <a className="text-electric-coral hover:text-electric-coral/80 underline" {...props} />
   ),
 
   // Цитаты
-  blockquote: (props: React.HTMLProps<HTMLQuoteElement>) => (
-    <blockquote className="border-l-4 border-electric-coral bg-white/60 pl-6 py-4 mb-6 italic text-steel" {...props} />
+  blockquote: (props: any) => (
+    <blockquote className="border-l-4 border-electric-coral pl-6 my-6 italic text-steel" {...props} />
   ),
 
-  // Горизонтальная линия
-  hr: (props: React.HTMLProps<HTMLHRElement>) => <hr className="my-8 border-steel/30" {...props} />,
+  // Код
+  code: (props: any) => (
+    <code className="bg-steel/10 px-2 py-1 rounded text-sm font-mono text-graphite" {...props} />
+  ),
 
-  // Жирный и курсив
-  strong: (props: React.HTMLProps<HTMLElement>) => <strong className="font-bold text-graphite" {...props} />,
-  em: (props: React.HTMLProps<HTMLElement>) => <em className="italic" {...props} />,
+  pre: (props: any) => (
+    <pre className="bg-graphite text-cloud p-4 rounded-lg mb-4 overflow-x-auto" {...props} />
+  ),
+
+  // Таблицы
+  table: (props: any) => (
+    <div className="overflow-x-auto mb-4">
+      <table className="min-w-full border border-steel/20" {...props} />
+    </div>
+  ),
+  
+  th: (props: any) => (
+    <th className="border border-steel/20 px-4 py-2 bg-steel/5 font-bold text-left" {...props} />
+  ),
+  
+  td: (props: any) => (
+    <td className="border border-steel/20 px-4 py-2" {...props} />
+  ),
 
   // Кастомные компоненты
-  Tooltip,
   Button,
 };
 
@@ -72,7 +63,9 @@ interface MDXProviderProps {
 export default function MDXProvider({ children }: MDXProviderProps) {
   return (
     <BaseMDXProvider components={components}>
-      {children}
+      <div className="prose prose-lg max-w-none">
+        {children}
+      </div>
     </BaseMDXProvider>
   );
 } 

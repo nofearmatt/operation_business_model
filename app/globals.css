@@ -52,11 +52,11 @@
   }
   
   .btn-primary {
-    @apply bg-electric-coral text-cloud px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-colors;
+    @apply bg-electric-coral text-cloud px-6 py-3 rounded-lg font-medium hover:bg-electric-coral/90 transition-colors;
   }
   
   .btn-secondary {
-    @apply bg-technical-blue text-cloud px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-colors;
+    @apply bg-technical-blue text-cloud px-6 py-3 rounded-lg font-medium hover:bg-technical-blue/90 transition-colors;
   }
   
   .btn-ghost {
