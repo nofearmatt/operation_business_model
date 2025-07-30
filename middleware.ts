@@ -9,10 +9,14 @@ export function middleware(request: NextRequest) {
   
   if (!authHeader) {
     // Если нет заголовка авторизации, запрашиваем Basic Auth
-    return new NextResponse('Введите пароль для доступа к сайту', {
+    return new NextResponse('Access Denied. Please enter password.', {
       status: 401,
       headers: {
-        'WWW-Authenticate': 'Basic realm="Стратегический Хаб Фотофактор"',
+        'WWW-Authenticate': 'Basic realm="Fotofactor Strategic Hub", charset="UTF-8"',
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
       },
     });
   }
@@ -21,25 +25,39 @@ export function middleware(request: NextRequest) {
   const [scheme, credentials] = authHeader.split(' ');
   
   if (scheme !== 'Basic' || !credentials) {
-    return new NextResponse('Неверный формат авторизации', {
+    return new NextResponse('Invalid authentication format', {
       status: 401,
       headers: {
-        'WWW-Authenticate': 'Basic realm="Стратегический Хаб Фотофактор"',
+        'WWW-Authenticate': 'Basic realm="Fotofactor Strategic Hub", charset="UTF-8"',
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
       },
     });
   }
 
-  // Декодируем credentials (base64)
-  const [username, userPassword] = Buffer.from(credentials, 'base64')
-    .toString()
-    .split(':');
+  try {
+    // Декодируем credentials (base64)
+    const decoded = Buffer.from(credentials, 'base64').toString('utf-8');
+    const [username, userPassword] = decoded.split(':');
 
-  // Проверяем пароль (username может быть любым)
-  if (userPassword !== password) {
-    return new NextResponse('Неверный пароль', {
+    // Проверяем пароль (username может быть любым)
+    if (userPassword !== password) {
+      return new NextResponse('Invalid password', {
+        status: 401,
+        headers: {
+          'WWW-Authenticate': 'Basic realm="Fotofactor Strategic Hub", charset="UTF-8"',
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        },
+      });
+    }
+  } catch (error) {
+    // Ошибка декодирования
+    return new NextResponse('Authentication error', {
       status: 401,
       headers: {
-        'WWW-Authenticate': 'Basic realm="Стратегический Хаб Фотофактор"',
+        'WWW-Authenticate': 'Basic realm="Fotofactor Strategic Hub", charset="UTF-8"',
+        'Content-Type': 'text/plain; charset=utf-8',
       },
     });
   }
