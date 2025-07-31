@@ -101,3 +101,47 @@ html {
     @apply border-2 border-steel text-steel px-6 py-3 rounded-lg font-medium hover:border-graphite hover:text-graphite transition-colors;
   }
 }
+
+/* Mobile-First Optimizations */
+@layer utilities {
+  /* Enhanced touch targets for mobile (44px+ minimum) */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Mobile navigation optimizations */
+  .mobile-nav-item {
+    @apply min-h-[44px] touch-manipulation select-none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Performance optimizations for mobile devices */
+  .mobile-optimized {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    contain: layout style paint;
+  }
+  
+  /* Disable hover effects on mobile devices */
+  @media (hover: none) and (pointer: coarse) {
+    .hover-disabled:hover {
+      transform: none !important;
+      scale: none !important;
+    }
+  }
+}
+
+/* Extra small devices optimizations */
+@media (max-width: 374px) {
+  .xs-responsive {
+    font-size: 0.875rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Reduce menu width on very small screens */
+  .xs-menu-width {
+    width: 280px !important;
+    max-width: calc(100vw - 20px) !important;
+  }
+}

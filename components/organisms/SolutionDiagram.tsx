@@ -157,21 +157,25 @@ const SolutionDiagram: React.FC = () => {
   };
 
   return (
-    <div ref={ref} className="w-full max-w-5xl mx-auto my-12">
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-graphite mb-2">
+    <div ref={ref} className="w-full max-w-5xl mx-auto my-8 sm:my-12 px-2 sm:px-0">
+      <div className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
+        <div className="text-center mb-6 sm:mb-8">
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-graphite mb-2">
             Архитектура «Платформа + Юниты»
           </h3>
-          <p className="text-steel">
+          <p className="text-sm sm:text-base text-steel">
             Интерактивная схема операционной модели
           </p>
         </div>
 
         <svg 
           viewBox="0 0 800 480" 
-          className="w-full h-auto"
-          style={{ maxHeight: '480px' }}
+          className="w-full h-auto touch-manipulation"
+          style={{ 
+            maxHeight: '480px',
+            minHeight: '200px'
+          }}
+          preserveAspectRatio="xMidYMid meet"
         >
           {/* Arrow marker definition */}
           <defs>
@@ -310,24 +314,31 @@ const SolutionDiagram: React.FC = () => {
           </motion.g>
         </svg>
 
-        {/* Интерактивная легенда */}
-        <div className="flex flex-wrap justify-center gap-4 mt-6 text-xs">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-technical-blue"></div>
-            <span className="text-steel">Клиент</span>
+        {/* Интерактивная легенда - Mobile-First */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-4 sm:mt-6 text-xs sm:text-sm">
+          <div className="flex items-center gap-2 min-h-[44px] sm:min-h-auto touch-manipulation">
+            <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-technical-blue"></div>
+            <span className="text-steel font-medium">Клиент</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-electric-coral"></div>
-            <span className="text-steel">Платформа</span>
+          <div className="flex items-center gap-2 min-h-[44px] sm:min-h-auto touch-manipulation">
+            <div className="w-3 h-3 sm:w-4 sm:h-4 rounded bg-electric-coral"></div>
+            <span className="text-steel font-medium">Платформа</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-steel"></div>
-            <span className="text-steel">Юниты</span>
+          <div className="flex items-center gap-2 min-h-[44px] sm:min-h-auto touch-manipulation">
+            <div className="w-3 h-3 sm:w-4 sm:h-4 rounded bg-steel"></div>
+            <span className="text-steel font-medium">Юниты</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded bg-cloud border border-steel"></div>
-            <span className="text-steel">Ресурсы</span>
+          <div className="flex items-center gap-2 min-h-[44px] sm:min-h-auto touch-manipulation">
+            <div className="w-3 h-3 sm:w-4 sm:h-4 rounded bg-cloud border border-steel"></div>
+            <span className="text-steel font-medium">Ресурсы</span>
           </div>
+        </div>
+
+        {/* Mobile Interaction Hint */}
+        <div className="text-center mt-4 sm:hidden">
+          <p className="text-xs text-steel/70">
+            Нажмите на элементы диаграммы для подробностей
+          </p>
         </div>
       </div>
     </div>
