@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://fotofactor-strategic-hub.vercel.app/sitemap.xml
+
+# Specific rules for search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+# Block access to admin and API routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Performance optimization
+User-agent: *
+Request-rate: 1/1s 
