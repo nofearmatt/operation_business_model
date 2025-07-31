@@ -173,6 +173,60 @@ select:focus-visible,
       scale: none !important;
     }
   }
+
+  /* Animation Performance Optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  
+  .will-change-scroll {
+    will-change: scroll-position;
+  }
+  
+  .transform-gpu {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  .animation-performance {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+  
+  /* Force GPU acceleration for animations */
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  
+  /* Animation utils for scroll-triggered content */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+  
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .animate-stagger-1 { transition-delay: 0.1s; }
+  .animate-stagger-2 { transition-delay: 0.2s; }
+  .animate-stagger-3 { transition-delay: 0.3s; }
+  .animate-stagger-4 { transition-delay: 0.4s; }
+  .animate-stagger-5 { transition-delay: 0.5s; }
 }
 
 /* Extra small devices optimizations */
@@ -199,6 +253,19 @@ select:focus-visible,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  
+  /* Disable GPU acceleration on reduced motion */
+  .gpu-accelerated {
+    transform: none;
+    -webkit-transform: none;
+    will-change: auto;
+  }
+  
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

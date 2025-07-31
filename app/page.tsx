@@ -1,5 +1,5 @@
 import HeroSection from '@/components/sections/HeroSection';
-import AnimatedSection from '@/components/atoms/AnimatedSection';
+import AnimatedBlock from '@/components/atoms/AnimatedBlock';
 import Heading from '@/components/atoms/Heading';
 import Tooltip from '@/components/atoms/Tooltip';
 import Link from 'next/link';
@@ -10,8 +10,13 @@ export default function Home() {
       {/* Hero секция */}
       <HeroSection />
       
-      {/* Секция с деталями - с анимацией */}
-      <AnimatedSection className="py-20 bg-white">
+      {/* Секция с деталями - с новой анимацией */}
+      <AnimatedBlock 
+        type="slideUp"
+        delay={0.2}
+        visualAnchor={true}
+        className="py-20 bg-white"
+      >
         <div className="max-w-4xl mx-auto px-8">
           <div className="text-center mb-16">
             <Heading level={2} className="mb-4">
@@ -27,108 +32,147 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-steel/5 p-8 rounded-xl">
-              <Heading level={3} className="mb-4 text-electric-coral">Что внутри?</Heading>
-              <ul className="space-y-3 text-steel">
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-electric-coral rounded-full"></div>
-                  <Link href="/hub" className="hover:text-electric-coral transition-colors font-medium">
-                    Стратегический Хаб
-                  </Link>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-technical-blue rounded-full"></div>
-                  <Link href="/satellite/operations" className="hover:text-technical-blue transition-colors font-medium">
-                    Операционная модель «Платформа + Юниты»
-                  </Link>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-electric-coral rounded-full"></div>
-                  <Link href="/satellite/products" className="hover:text-electric-coral transition-colors font-medium">
-                    Продуктовая матрица
-                  </Link>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-technical-blue rounded-full"></div>
-                  <Link href="/satellite/goldratt" className="hover:text-technical-blue transition-colors font-medium">
-                    Анализ по методу Голдратта
-                  </Link>
-                </li>
-              </ul>
+          {/* Staggered grid animation */}
+          <AnimatedBlock 
+            type="scale"
+            staggerChildren={true}
+            stagger={0.15}
+            delay={0.3}
+            className="grid md:grid-cols-2 gap-8"
+          >
+            <div className="bg-steel/5 p-6 rounded-xl">
+              <div className="text-4xl mb-4">🎯</div>
+              <h3 className="text-xl font-bold mb-3">Фокус на результате</h3>
+              <p className="text-steel">
+                Каждый юнит отвечает за свою прибыль и знает точные метрики успеха.
+              </p>
             </div>
-
-            <div className="bg-cloud p-8 rounded-xl">
-              <Heading level={3} className="mb-4 text-technical-blue">Принципы</Heading>
-              <ul className="space-y-3 text-steel">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-technical-blue rounded-full mt-2 flex-shrink-0"></div>
-                  <span>
-                    <Tooltip text="Централизованное управление всеми общими ресурсами: персонал, оборудование, процессы, знания">
-                      <strong>Платформа</strong>
-                    </Tooltip>
-                    {' '}— единый центр ресурсов
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-electric-coral rounded-full mt-2 flex-shrink-0"></div>
-                  <span>
-                    <Tooltip text="Автономные команды, фокусирующиеся на конкретных продуктах или услугах с четкими KPI">
-                      <strong>Юниты</strong>
-                    </Tooltip>
-                    {' '}— автономные проектные команды
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-technical-blue rounded-full mt-2 flex-shrink-0"></div>
-                  <span>
-                    <Tooltip text="Четкое разделение ответственности: Платформа отвечает за ресурсы, Юниты — за результат">
-                      <strong>Разделение ответственности</strong>
-                    </Tooltip>
-                    {' '}— каждый за своё
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-electric-coral rounded-full mt-2 flex-shrink-0"></div>
-                  <span>
-                    <Tooltip text="Прозрачная система метрик для оценки эффективности как Платформы (утилизация ресурсов), так и Юнитов (ROI проектов)">
-                      <strong>Прозрачные метрики</strong>
-                    </Tooltip>
-                    {' '}— измеряем всё
-                  </span>
-                </li>
-              </ul>
+            
+            <div className="bg-steel/5 p-6 rounded-xl">
+              <div className="text-4xl mb-4">⚡</div>
+              <h3 className="text-xl font-bold mb-3">Скорость решений</h3>
+              <p className="text-steel">
+                Автономность юнитов устраняет бюрократические задержки.
+              </p>
             </div>
-          </div>
+            
+            <div className="bg-steel/5 p-6 rounded-xl">
+              <div className="text-4xl mb-4">📊</div>
+              <h3 className="text-xl font-bold mb-3">Прозрачность процессов</h3>
+              <p className="text-steel">
+                Каждый ресурс имеет четкую стоимость и метрики эффективности.
+              </p>
+            </div>
+            
+            <div className="bg-steel/5 p-6 rounded-xl">
+              <div className="text-4xl mb-4">🚀</div>
+              <h3 className="text-xl font-bold mb-3">Масштабируемость</h3>
+              <p className="text-steel">
+                Добавление новых юнитов не усложняет общую систему.
+              </p>
+            </div>
+          </AnimatedBlock>
         </div>
-      </AnimatedSection>
+      </AnimatedBlock>
 
-      {/* Секция трансформации - с анимацией */}
-      <AnimatedSection className="py-20 bg-steel/5" delay={0.2}>
+      {/* Секция трансформации - с разными анимациями */}
+      <AnimatedBlock 
+        type="blur"
+        delay={0.1}
+        showProgress={true}
+        className="py-20 bg-steel/5"
+      >
         <div className="max-w-4xl mx-auto px-8 text-center">
           <Heading level={2} className="mb-8">От проблем к решениям</Heading>
-          <div className="grid md:grid-cols-2 gap-12">
+          
+          <AnimatedBlock 
+            type="slideLeft"
+            staggerChildren={true}
+            stagger={0.2}
+            delay={0.4}
+            className="grid md:grid-cols-2 gap-12"
+          >
             <div>
-              <h3 className="text-xl font-bold text-red-600 mb-4">❌ Было</h3>
-              <ul className="text-left space-y-2 text-steel">
-                <li>• Хаотичное распределение задач</li>
-                <li>• Перегрузка ключевых сотрудников</li>
-                <li>• Непрозрачность процессов</li>
-                <li>• Потеря управляемости при росте</li>
-              </ul>
+              <AnimatedBlock type="rotate" delay={0.2}>
+                <h3 className="text-xl font-bold text-red-600 mb-4">❌ Было</h3>
+              </AnimatedBlock>
+              <AnimatedBlock 
+                type="fadeIn"
+                staggerChildren={true}
+                stagger={0.1}
+                delay={0.5}
+                className="text-left space-y-2 text-steel"
+              >
+                <div>• Хаотичное распределение задач</div>
+                <div>• Перегрузка ключевых сотрудников</div>
+                <div>• Непрозрачность процессов</div>
+                <div>• Потеря управляемости при росте</div>
+              </AnimatedBlock>
             </div>
+            
             <div>
-              <h3 className="text-xl font-bold text-green-600 mb-4">✅ Стало</h3>
-              <ul className="text-left space-y-2 text-steel">
-                <li>• Системное управление ресурсами</li>
-                <li>• Равномерная загрузка команд</li>
-                <li>• Прозрачные процессы и метрики</li>
-                <li>• Масштабируемость без потери качества</li>
-              </ul>
+              <AnimatedBlock type="rotate" delay={0.3}>
+                <h3 className="text-xl font-bold text-green-600 mb-4">✅ Стало</h3>
+              </AnimatedBlock>
+              <AnimatedBlock 
+                type="fadeIn"
+                staggerChildren={true}
+                stagger={0.1}
+                delay={0.6}
+                className="text-left space-y-2 text-steel"
+              >
+                <div>• Системное управление ресурсами</div>
+                <div>• Равномерная загрузка команд</div>
+                <div>• Прозрачные процессы и метрики</div>
+                <div>• Масштабируемость без потери качества</div>
+              </AnimatedBlock>
             </div>
-          </div>
+          </AnimatedBlock>
         </div>
-      </AnimatedSection>
+      </AnimatedBlock>
+
+      {/* Финальная CTA секция */}
+      <AnimatedBlock 
+        type="scale"
+        delay={0.3}
+        duration={0.8}
+        visualAnchor={true}
+        className="py-20 bg-gradient-to-br from-electric-coral/5 to-technical-blue/5"
+      >
+        <div className="max-w-4xl mx-auto px-8 text-center">
+          <AnimatedBlock type="slideUp" delay={0.4}>
+            <Heading level={2} className="mb-6">
+              Готовы к трансформации?
+            </Heading>
+          </AnimatedBlock>
+          
+          <AnimatedBlock type="fadeIn" delay={0.6}>
+            <p className="text-lg text-steel mb-8 max-w-2xl mx-auto">
+              Изучите нашу операционную модель и узнайте, как она может изменить ваш бизнес
+            </p>
+          </AnimatedBlock>
+          
+          <AnimatedBlock 
+            type="scale" 
+            delay={0.8}
+            staggerChildren={true}
+            stagger={0.2}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <Link href="/satellite/operations" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto bg-electric-coral text-cloud px-8 py-4 rounded-lg font-medium hover:bg-electric-coral/90 transition-all hover:scale-105 min-h-[48px]">
+                Изучить Операционную Модель
+              </button>
+            </Link>
+            
+            <Link href="/satellite/products" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto border-2 border-technical-blue text-technical-blue px-8 py-4 rounded-lg font-medium hover:bg-technical-blue hover:text-cloud transition-all hover:scale-105 min-h-[48px]">
+                Посмотреть Продукты
+              </button>
+            </Link>
+          </AnimatedBlock>
+        </div>
+      </AnimatedBlock>
     </main>
   );
 }
