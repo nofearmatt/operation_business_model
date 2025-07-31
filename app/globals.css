@@ -2,26 +2,69 @@
 @import "tailwindcss";
 
 @theme {
-  /* Blueprint colors (основа) */
   --color-graphite: #111827;
   --color-steel: #4B5563;
   --color-cloud: #F9FAFB;
-  
-  /* Spotlight colors (акценты) */
-  --color-electric-coral: #FF5A5A;  
+  --color-electric-coral: #FF5A5A;
   --color-technical-blue: #3B82F6;
+
+  --font-family-sans: Inter, system-ui, sans-serif;
+}
+
+/* Blueprint background pattern */
+@layer utilities {
+  .blueprint-bg {
+    background-image: 
+      linear-gradient(rgba(75, 85, 99, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(75, 85, 99, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-color: #F9FAFB;
+  }
   
-  /* Font families */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  
-  /* Background patterns */
-  --background-image-blueprint-grid: linear-gradient(rgba(75, 85, 99, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(75, 85, 99, 0.1) 1px, transparent 1px);
-  --background-size-grid: 20px 20px;
+  .blueprint-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-electric-coral);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cloud);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-steel);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-graphite);
 }
 
 @layer base {
   html {
-    font-family: var(--font-sans);
+    font-family: var(--font-family-sans);
   }
   
   body {
@@ -46,11 +89,6 @@
 }
 
 @layer components {
-  .blueprint-bg {
-    background-image: var(--background-image-blueprint-grid);
-    background-size: var(--background-size-grid);
-  }
-  
   .btn-primary {
     @apply bg-electric-coral text-cloud px-6 py-3 rounded-lg font-medium hover:bg-electric-coral/90 transition-colors;
   }

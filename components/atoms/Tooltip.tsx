@@ -1,51 +1,78 @@
 'use client';
 
-import { useState, ReactNode } from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface TooltipProps {
   text: string;
-  children: ReactNode;
+  children: React.ReactNode;
   position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
-export default function Tooltip({ 
+const Tooltip: React.FC<TooltipProps> = ({ 
   text, 
   children, 
   position = 'top' 
-}: TooltipProps) {
+}) => {
   const [isVisible, setIsVisible] = useState(false);
-  
-  const positions = {
-    top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-2',
-    bottom: 'top-full left-1/2 transform -translate-x-1/2 mt-2',
-    left: 'right-full top-1/2 transform -translate-y-1/2 mr-2',
-    right: 'left-full top-1/2 transform -translate-y-1/2 ml-2'
+
+  const getPositionClasses = () => {
+    switch (position) {
+      case 'top':
+        return '-top-2 -translate-y-full left-1/2 -translate-x-1/2';
+      case 'bottom':
+        return '-bottom-2 translate-y-full left-1/2 -translate-x-1/2';
+      case 'left':
+        return 'left-0 -translate-x-full top-1/2 -translate-y-1/2 -ml-2';
+      case 'right':
+        return 'right-0 translate-x-full top-1/2 -translate-y-1/2 -mr-2';
+      default:
+        return '-top-2 -translate-y-full left-1/2 -translate-x-1/2';
+    }
   };
-  
-  const arrows = {
-    top: 'top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-transparent border-t-graphite',
-    bottom: 'bottom-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-b-4 border-transparent border-b-graphite',
-    left: 'left-full top-1/2 transform -translate-y-1/2 border-t-4 border-b-4 border-l-4 border-transparent border-l-graphite',
-    right: 'right-full top-1/2 transform -translate-y-1/2 border-t-4 border-b-4 border-r-4 border-transparent border-r-graphite'
+
+  const getArrowClasses = () => {
+    switch (position) {
+      case 'top':
+        return 'absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-graphite';
+      case 'bottom':
+        return 'absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-graphite';
+      case 'left':
+        return 'absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-graphite';
+      case 'right':
+        return 'absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-graphite';
+      default:
+        return 'absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-graphite';
+    }
   };
-  
+
   return (
-    <span 
-      className="relative inline-block cursor-help"
+    <div 
+      className="relative inline-block"
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >
-      <span className="border-b border-dashed border-steel">
+      <span className="border-b border-dashed border-technical-blue cursor-help hover:border-electric-coral transition-colors">
         {children}
       </span>
-      {isVisible && (
-        <div className={`absolute z-50 ${positions[position]}`}>
-          <div className="bg-graphite text-cloud text-sm px-3 py-2 rounded-lg shadow-lg max-w-xs">
+      
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className={`absolute z-50 px-3 py-2 bg-graphite text-cloud text-sm rounded-lg shadow-lg max-w-xs text-center ${getPositionClasses()}`}
+            style={{ pointerEvents: 'none' }}
+          >
             {text}
-          </div>
-          <div className={`absolute ${arrows[position]}`}></div>
-        </div>
-      )}
-    </span>
+            <div className={getArrowClasses()} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
-} 
+};
+
+export default Tooltip; 
