@@ -1,5 +1,6 @@
 import Tooltip from '@/components/atoms/Tooltip'
 import Button from '@/components/atoms/Button'
+import Link from 'next/link'
 
 # Стратегический Хаб
 
@@ -28,7 +29,7 @@ import Button from '@/components/atoms/Button'
 
 ## 2. Диагностика: Где находится наше «Бутылочное Горлышко»?
 
-*Полный анализ вынесен в [**Спутник: Анализ ограничений по Голдратту**](/satellite/diagnosis)*
+*Полный анализ вынесен в [**Спутник: Анализ ограничений по Голдратту**](/satellite/goldratt)*
 
 Согласно <Tooltip text="Методология управления, созданная Элияху Голдраттом, фокусирующаяся на поиске и устранении ограничений системы">Теории Ограничений</Tooltip>, любая система ограничена в своей производительности всего одним фактором. Устранение этого «бутылочного горлышка» дает максимальный прирост эффективности. В нашей компании на 50 человек я вижу следующую картину:
 
@@ -40,9 +41,11 @@ import Button from '@/components/atoms/Button'
 **Вывод:** Наше ограничение — **процесс управления потоком работ (workflow management)**, а точнее — его «ручной привод». У нас нет стандартизированного конвейера для типовых задач. Каждый проект — это "авторская работа" по менеджменту, что пожирает самый ценный ресурс — время и внимание ключевых сотрудников. Мы пытаемся управлять 50 людьми так же, как управляли 15-ю, и система трещит по швам.
 
 <div className="my-8 p-6 bg-white/80 rounded-xl border-l-4 border-electric-coral">
-  <Button variant="secondary" size="lg">
-    Подробнее в Анализе Голдратта →
-  </Button>
+  <Link href="/satellite/goldratt">
+    <Button variant="secondary" size="lg">
+      Подробнее в Анализе Голдратта →
+    </Button>
+  </Link>
 </div>
 
 ---
@@ -156,9 +159,11 @@ import Button from '@/components/atoms/Button'
 - **Для Клиента:** Прозрачность и предсказуемость.
 
 <div className="my-8 p-6 bg-white/80 rounded-xl border-l-4 border-technical-blue">
-  <Button variant="primary" size="lg">
-    Изучить Продуктовую Матрицу →
-  </Button>
+  <Link href="/satellite/products">
+    <Button variant="primary" size="lg">
+      Изучить Продуктовую Матрицу →
+    </Button>
+  </Link>
 </div>
 
 ---
@@ -201,9 +206,11 @@ import Button from '@/components/atoms/Button'
 - **Масштабируемость:** Для роста нанимаем людей в Платформу или растим Продюсеров
 
 <div className="my-8 p-6 bg-white/80 rounded-xl border-l-4 border-electric-coral">
-  <Button variant="secondary" size="lg">
-    Подробная Операционная Модель →
-  </Button>
+  <Link href="/satellite/operations">
+    <Button variant="secondary" size="lg">
+      Подробная Операционная Модель →
+    </Button>
+  </Link>
 </div>
 
 ---
