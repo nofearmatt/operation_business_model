@@ -1,271 +1,337 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import { useState } from 'react';
 
 interface DiagramNode {
   id: string;
+  type: 'client' | 'platform' | 'unit' | 'resources';
   label: string;
-  description: string;
   x: number;
   y: number;
-  type: 'platform' | 'unit' | 'flow';
+  width?: number;
+  height?: number;
+  radius?: number;
+  tooltip: string;
 }
 
-const nodes: DiagramNode[] = [
-  {
-    id: 'platform',
-    label: 'ПЛАТФОРМА',
-    description: 'Центр ресурсов: студии, оборудование, штатные специалисты',
-    x: 200,
-    y: 300,
-    type: 'platform'
-  },
-  {
-    id: 'unit-flow',
-    label: 'Юнит "Поток"',
-    description: 'Контент-Стартер, типовые съемки',
-    x: 500,
-    y: 200,
-    type: 'unit'
-  },
-  {
-    id: 'unit-projects',
-    label: 'Юнит "Проекты"',
-    description: 'Бренд-Пакеты, Кастом-проекты',
-    x: 500,
-    y: 400,
-    type: 'unit'
-  },
-  {
-    id: 'sales',
-    label: 'ПРОДАЖИ',
-    description: 'Входящие заказы от клиентов',
-    x: 50,
-    y: 100,
-    type: 'flow'
-  },
-  {
-    id: 'client',
-    label: 'КЛИЕНТ',
-    description: 'Получает готовый продукт',
-    x: 750,
-    y: 300,
-    type: 'flow'
-  }
-];
+interface DiagramConnection {
+  from: string;
+  to: string;
+  path: string;
+}
 
-const connections = [
-  { from: 'sales', to: 'unit-flow', color: '#3B82F6' },
-  { from: 'sales', to: 'unit-projects', color: '#3B82F6' },
-  { from: 'platform', to: 'unit-flow', color: '#FF5A5A', bidirectional: true },
-  { from: 'platform', to: 'unit-projects', color: '#FF5A5A', bidirectional: true },
-  { from: 'unit-flow', to: 'client', color: '#3B82F6' },
-  { from: 'unit-projects', to: 'client', color: '#3B82F6' }
-];
-
-export default function SolutionDiagram() {
+const SolutionDiagram: React.FC = () => {
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
+  const nodes: DiagramNode[] = [
+    {
+      id: 'client',
+      type: 'client',
+      label: 'Клиент',
+      x: 400,
+      y: 80,
+      radius: 50,
+      tooltip: 'Источник требований и конечный получатель ценности'
+    },
+    {
+      id: 'platform',
+      type: 'platform', 
+      label: 'Платформа',
+      x: 400,
+      y: 220,
+      width: 200,
+      height: 80,
+      tooltip: 'Центральный хаб. Распределяет ресурсы между юнитами. KPI: утилизация 85%+'
+    },
+    {
+      id: 'unit1',
+      type: 'unit',
+      label: 'Фото Юнит',
+      x: 180,
+      y: 380,
+      width: 150,
+      height: 60,
+      tooltip: 'Фотосъемка и обработка. KPI: качество, сроки выполнения'
+    },
+    {
+      id: 'unit2',
+      type: 'unit',
+      label: 'Видео Юнит', 
+      x: 400,
+      y: 380,
+      width: 150,
+      height: 60,
+      tooltip: 'Видеопроизводство и монтаж. KPI: конверсия, время производства'
+    },
+    {
+      id: 'unit3',
+      type: 'unit',
+      label: 'Дизайн Юнит',
+      x: 620,
+      y: 380,
+      width: 150,
+      height: 60,
+      tooltip: 'Графический дизайн и брендинг. KPI: креативность, клиентская оценка'
+    },
+    {
+      id: 'resources',
+      type: 'resources',
+      label: 'Ресурсы',
+      x: 650,
+      y: 190,
+      width: 120,
+      height: 120,
+      tooltip: 'Общие ресурсы: персонал, оборудование, процессы'
+    }
+  ];
+
+  const connections: DiagramConnection[] = [
+    {
+      from: 'client',
+      to: 'platform',
+      path: 'M 400 130 L 400 180'
+    },
+    {
+      from: 'platform',
+      to: 'unit1', 
+      path: 'M 350 260 L 230 340'
+    },
+    {
+      from: 'platform',
+      to: 'unit2',
+      path: 'M 400 260 L 400 340'
+    },
+    {
+      from: 'platform',
+      to: 'unit3',
+      path: 'M 450 260 L 570 340'
+    },
+    {
+      from: 'resources',
+      to: 'platform',
+      path: 'M 590 220 L 500 220'
+    }
+  ];
+
+  const getNodeColor = (type: string, isHovered: boolean) => {
+    const colors = {
+      client: isHovered ? '#2563EB' : '#3B82F6', // Technical Blue
+      platform: isHovered ? '#EF4444' : '#FF5A5A', // Electric Coral
+      unit: isHovered ? '#6B7280' : '#4B5563', // Steel  
+      resources: isHovered ? '#E5E7EB' : '#F9FAFB' // Cloud
+    };
+    return colors[type as keyof typeof colors];
+  };
+
+  const getNodeStroke = (type: string) => {
+    const strokes = {
+      client: '#1F2937',
+      platform: '#1F2937', 
+      unit: '#1F2937',
+      resources: '#4B5563'
+    };
+    return strokes[type as keyof typeof strokes];
+  };
+
+  // Анимация прорисовки линий (Фаза 1: 0-1.5 сек)
+  const pathVariants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: { 
+      pathLength: 1, 
       opacity: 1,
-      transition: { staggerChildren: 0.3 }
+      transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }
     }
   };
 
+  // Анимация появления блоков (Фаза 2: 1.0-2.5 сек)
   const nodeVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 },
-    hover: { scale: 1.05 }
-  };
-
-  const connectionVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 }
-  };
-
-  const getNodeColor = (type: string) => {
-    switch (type) {
-      case 'platform': return '#111827'; // graphite
-      case 'unit': return '#FF5A5A'; // electric-coral
-      case 'flow': return '#3B82F6'; // technical-blue
-      default: return '#4B5563'; // steel
+    hidden: { scale: 0, opacity: 0 },
+    visible: { 
+      scale: 1, 
+      opacity: 1,
+      transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
     }
-  };
-
-  const getConnectionPath = (from: DiagramNode, to: DiagramNode) => {
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
-    const midX = from.x + dx / 2;
-    const midY = from.y + dy / 2;
-    
-    // Создаем плавную кривую
-    return `M ${from.x} ${from.y} Q ${midX} ${midY - 30} ${to.x} ${to.y}`;
   };
 
   return (
-    <div className="w-full bg-white/60 rounded-xl p-8 my-8">
-      <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold text-graphite mb-2">
-          Архитектура «Платформа + Юниты»
-        </h3>
-        <p className="text-steel">
-          Интерактивная схема операционной модели
-        </p>
-      </div>
+    <div ref={ref} className="w-full max-w-5xl mx-auto my-12">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-bold text-graphite mb-2">
+            Архитектура «Платформа + Юниты»
+          </h3>
+          <p className="text-steel">
+            Интерактивная схема операционной модели
+          </p>
+        </div>
 
-      <div className="flex justify-center overflow-x-auto">
-        <motion.svg
-          width="800"
-          height="500"
-          viewBox="0 0 800 500"
-          className="w-full max-w-4xl h-auto min-w-[600px]"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+        <svg 
+          viewBox="0 0 800 480" 
+          className="w-full h-auto"
+          style={{ maxHeight: '480px' }}
         >
-          {/* Фоновая сетка */}
+          {/* Arrow marker definition */}
           <defs>
-            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#4B5563" strokeWidth="0.5" opacity="0.2"/>
+            <marker
+              id="arrowhead"
+              markerWidth="10"
+              markerHeight="7"
+              refX="9"
+              refY="3.5"
+              orient="auto"
+            >
+              <polygon
+                points="0 0, 10 3.5, 0 7"
+                fill="#4B5563"
+              />
+            </marker>
+            
+            {/* Blueprint background pattern */}
+            <pattern id="blueprint" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(75, 85, 99, 0.1)" strokeWidth="1"/>
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
 
-          {/* Соединительные линии */}
-          {connections.map((conn, index) => {
-            const fromNode = nodes.find(n => n.id === conn.from);
-            const toNode = nodes.find(n => n.id === conn.to);
-            if (!fromNode || !toNode) return null;
+          {/* Background */}
+          <rect width="100%" height="100%" fill="url(#blueprint)" />
 
-            return (
-              <g key={`connection-${index}`}>
-                <motion.path
-                  d={getConnectionPath(fromNode, toNode)}
-                  fill="none"
-                  stroke={conn.color}
-                  strokeWidth="3"
-                  strokeDasharray={conn.bidirectional ? "5,5" : "none"}
-                  variants={connectionVariants}
-                  opacity={hoveredNode && (hoveredNode === conn.from || hoveredNode === conn.to) ? 1 : 0.6}
-                />
-                
-                {/* Стрелка */}
-                <motion.polygon
-                  points={`${toNode.x-8},${toNode.y-4} ${toNode.x-8},${toNode.y+4} ${toNode.x},${toNode.y}`}
-                  fill={conn.color}
-                  variants={connectionVariants}
-                  opacity={hoveredNode && (hoveredNode === conn.from || hoveredNode === conn.to) ? 1 : 0.6}
-                />
-              </g>
-            );
-          })}
+          {/* Connections - Фаза 1: прорисовка линий */}
+          {connections.map((connection, index) => (
+            <motion.path
+              key={`connection-${index}`}
+              d={connection.path}
+              stroke="#4B5563"
+              strokeWidth="2"
+              fill="none"
+              markerEnd="url(#arrowhead)"
+              variants={pathVariants}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              transition={{ delay: index * 0.2 }}
+            />
+          ))}
 
-          {/* Узлы диаграммы */}
-          {nodes.map((node) => (
-            <g key={node.id}>
-              <motion.g
-                variants={nodeVariants}
-                whileHover="hover"
-                onHoverStart={() => setHoveredNode(node.id)}
-                onHoverEnd={() => setHoveredNode(null)}
-                style={{ cursor: 'pointer' }}
-              >
-                {/* Тень */}
-                <ellipse
-                  cx={node.x + 2}
-                  cy={node.y + 2}
-                  rx={node.type === 'platform' ? "80" : "60"}
-                  ry="30"
-                  fill="rgba(0,0,0,0.1)"
-                />
-                
-                {/* Основной узел */}
-                <ellipse
+          {/* Nodes - Фаза 2: появление блоков */}
+          {nodes.map((node, index) => (
+            <motion.g
+              key={node.id}
+              variants={nodeVariants}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              transition={{ delay: 1.2 + index * 0.2 }}
+              onMouseEnter={() => setHoveredNode(node.id)}
+              onMouseLeave={() => setHoveredNode(null)}
+              style={{ cursor: 'pointer' }}
+            >
+              {node.type === 'client' ? (
+                <motion.circle
                   cx={node.x}
                   cy={node.y}
-                  rx={node.type === 'platform' ? "80" : "60"}
-                  ry="30"
-                  fill={getNodeColor(node.type)}
-                  stroke="#F9FAFB"
+                  r={node.radius}
+                  fill={getNodeColor(node.type, hoveredNode === node.id)}
+                  stroke={getNodeStroke(node.type)}
                   strokeWidth="2"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
                 />
-                
-                {/* Текст */}
-                <text
-                  x={node.x}
-                  y={node.y}
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  fill="#F9FAFB"
-                  fontSize={node.type === 'platform' ? "14" : "12"}
-                  fontWeight="bold"
-                >
-                  {node.label}
-                </text>
-              </motion.g>
+              ) : (
+                <motion.rect
+                  x={node.x - (node.width! / 2)}
+                  y={node.y - (node.height! / 2)}
+                  width={node.width}
+                  height={node.height}
+                  fill={getNodeColor(node.type, hoveredNode === node.id)}
+                  stroke={getNodeStroke(node.type)}
+                  strokeWidth="2"
+                  rx="8"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                />
+              )}
+              
+              <text
+                x={node.x}
+                y={node.y + 5}
+                textAnchor="middle"
+                className="text-sm font-semibold fill-current text-white pointer-events-none"
+                style={{ 
+                  filter: 'drop-shadow(1px 1px 1px rgba(0,0,0,0.5))',
+                  fontSize: node.type === 'platform' ? '16px' : '14px'
+                }}
+              >
+                {node.label}
+              </text>
 
-              {/* Тултип при наведении */}
+              {/* SVG Tooltip */}
               {hoveredNode === node.id && (
                 <motion.g
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.2 }}
                 >
                   <rect
-                    x={node.x - 100}
-                    y={node.y - 60}
-                    width="200"
-                    height="40"
+                    x={node.x - 120}
+                    y={node.y - (node.type === 'client' ? 120 : 100)}
+                    width="240"
+                    height="50"
                     fill="#111827"
-                    rx="6"
-                    opacity="0.9"
+                    rx="8"
+                    className="drop-shadow-lg"
                   />
                   <text
                     x={node.x}
-                    y={node.y - 40}
+                    y={node.y - (node.type === 'client' ? 105 : 85)}
                     textAnchor="middle"
-                    dominantBaseline="central"
-                    fill="#F9FAFB"
-                    fontSize="11"
+                    className="text-xs fill-white pointer-events-none"
                   >
-                    {node.description}
+                    <tspan x={node.x} dy="0">{node.tooltip.substring(0, 40)}</tspan>
+                    <tspan x={node.x} dy="14">{node.tooltip.substring(40)}</tspan>
                   </text>
                 </motion.g>
               )}
-            </g>
+            </motion.g>
           ))}
 
-          {/* Легенда */}
-          <g transform="translate(20, 450)">
-            <text x="0" y="0" fill="#111827" fontSize="12" fontWeight="bold">Легенда:</text>
-            <circle cx="10" cy="15" r="6" fill="#111827" />
-            <text x="25" y="20" fill="#4B5563" fontSize="10">Платформа (ресурсы)</text>
-            <circle cx="120" cy="15" r="6" fill="#FF5A5A" />
-            <text x="135" y="20" fill="#4B5563" fontSize="10">Проектные юниты</text>
-            <circle cx="240" cy="15" r="6" fill="#3B82F6" />
-            <text x="255" y="20" fill="#4B5563" fontSize="10">Внешние потоки</text>
-          </g>
-        </motion.svg>
-      </div>
+          {/* Декоративные элементы */}
+          <motion.g
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 0.3 } : { opacity: 0 }}
+            transition={{ delay: 2.5, duration: 0.5 }}
+          >
+            <text x="50" y="30" className="text-xs fill-steel font-medium">
+              Операционная модель «Фотофактор»
+            </text>
+            <text x="50" y="45" className="text-xs fill-steel">
+              Версия 2.0 • Интерактивная диаграмма
+            </text>
+          </motion.g>
+        </svg>
 
-      {/* Интерактивные кнопки */}
-      <div className="flex justify-center gap-4 mt-6">
-        <motion.div
-          className="px-4 py-2 bg-technical-blue text-cloud rounded-lg text-sm"
-          whileHover={{ scale: 1.05 }}
-        >
-          Поток заказов
-        </motion.div>
-        <motion.div
-          className="px-4 py-2 bg-electric-coral text-cloud rounded-lg text-sm"
-          whileHover={{ scale: 1.05 }}
-        >
-          Обмен ресурсами
-        </motion.div>
+        {/* Интерактивная легенда */}
+        <div className="flex flex-wrap justify-center gap-4 mt-6 text-xs">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-full bg-technical-blue"></div>
+            <span className="text-steel">Клиент</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded bg-electric-coral"></div>
+            <span className="text-steel">Платформа</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded bg-steel"></div>
+            <span className="text-steel">Юниты</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded bg-cloud border border-steel"></div>
+            <span className="text-steel">Ресурсы</span>
+          </div>
+        </div>
       </div>
     </div>
   );
-} 
+};
+
+export default SolutionDiagram; 
